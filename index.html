@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>Foodie Order App</title>
+    <style>
+        * { font-size: 2vw; font-family: Calibri; }
+        body { background-color: linen; }
+        h1 { border: solid; border-radius: 2vw; width: 50%; background-color: white; }
+        form { border: solid; border-radius: 2vw; width: 50%; background-color: white; padding: 20px; }
+        
+        /* Media query for smaller screen sizes */
+        @media (max-width: 600px) {
+            * { font-size: 4vw; }
+            h1, form { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>Foodie Order App</h1>
+        <form onsubmit="return eat(event)">
+            <label>Customer Name:</label>
+            <input type="text" placeholder="Enter name" id="name">
+            <br /><br />
+            <label>Choose Favourite Food:</label><br /><br />
+            <input type="checkbox" id="ni" name="f" value="North Indian" checked="true"> North Indian
+            <input type="checkbox" id="si" name="f" value="South Indian"> South Indian
+            <input type="checkbox" id="ff" name="f" value="Fast Food"> Fast Food
+            <br /><br />
+            <input type="submit" value="Order">
+        </form>
+        <h2 id="msg"></h2>
+    </center>
+
+    <script>
+        function eat(event) {
+            // Prevent default form submission
+            event.preventDefault();
+            
+            let name = document.getElementById("name");
+            let ni = document.getElementById("ni");
+            let si = document.getElementById("si");
+            let ff = document.getElementById("ff");
+            let msg = document.getElementById("msg");
+
+            // Check for empty name input
+            if (name.value === "") {
+                alert("Please enter name");
+                msg.innerHTML = "";
+                name.focus();
+                return false;
+            }
+
+            // Check if name contains only alphabets and spaces
+            if (!name.value.match("^[A-Za-z ]+$")) {
+                alert("Name should contain only alphabets");
+                msg.innerHTML = "";
+                name.focus();
+                return false;
+            }
+
+            // Build the order string based on selected checkboxes
+            let ans = "";
+            if (ni.checked) ans += "North Indian ";
+            if (si.checked) ans += "South Indian ";
+            if (ff.checked) ans += "Fast Food ";
+
+            // Display the result
+            msg.innerHTML = "Thank you !,       " + name.value + "<br>" + "Your Order is " + ans;
+            
+            return false;  // Prevent form submission
+        }
+    </script>
+</body>
+</html>
